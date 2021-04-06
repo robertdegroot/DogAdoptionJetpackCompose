@@ -1,7 +1,7 @@
 # Example dog adoption app
 
 ## :scroll: Description
-Playing around with Jetpack Compose for learning purposed, as part of the Android Dev Challenge (Week 1) by the Jetpack Compose Team.
+Playing around with Jetpack Compose for learning purposes, as part of the Android Dev Challenge (Week 1) by the Jetpack Compose Team.
 
 
 ## :camera_flash: Screenshots
