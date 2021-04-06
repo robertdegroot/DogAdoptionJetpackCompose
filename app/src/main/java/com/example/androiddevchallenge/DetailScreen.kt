@@ -1,15 +1,10 @@
 package com.example.androiddevchallenge
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -19,18 +14,20 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import com.example.androiddevchallenge.data.Dog
-import com.google.gson.Gson
 
 @Composable
-fun DogCard(dog: Dog, navController: NavController?) {
-    Surface(
-        shape = RoundedCornerShape(8.dp),
-        elevation = 8.dp,
-        modifier = Modifier.padding(8.dp)
-    ) {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onCardClicked(dog, navController) }) {
+fun DetailScreen(dog: Dog, navController: NavController?) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        TopAppBar(
+            title = { Text("Details for ${dog.name}") },
+            navigationIcon = {
+                IconButton(onClick = { navController?.navigate(Screen.HOME.route) }) {
+                    Icon(Icons.Filled.ArrowBack,"")
+                }
+            },
+        )
+
+        Surface(color = MaterialTheme.colors.background) {
             val image: Painter = painterResource(id = dog.imageResource)
             Image(
                 painter = image,
@@ -57,12 +54,6 @@ fun DogCard(dog: Dog, navController: NavController?) {
                 Text("• ${dog.breed}")
                 Text("• $colorString")
             }
-
         }
     }
-}
-
-fun onCardClicked(dog: Dog, navController: NavController?) {
-    val dogJson = Gson().toJson(dog)
-    navController?.navigate("${Screen.DETAIL_SCREEN.route}/$dogJson")
 }
