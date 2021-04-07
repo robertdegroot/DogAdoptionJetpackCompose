@@ -6,7 +6,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -29,30 +31,43 @@ fun DetailScreen(dog: Dog, navController: NavController?) {
 
         Surface(color = MaterialTheme.colors.background) {
             val image: Painter = painterResource(id = dog.imageResource)
-            Image(
-                painter = image,
-                contentDescription = dog.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(144.dp)
-            )
 
-            Column(modifier = Modifier.padding(16.dp)) {
-                var colorString = ""
-                dog.colors.forEachIndexed { index, text ->
-                    colorString += text
-
-                    if (index < dog.colors.size - 1) {
-                        colorString += ", "
-                    }
+            Column {
+                Box {
+                    Image(
+                        painter = image,
+                        contentDescription = dog.name,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
 
+                Column(modifier = Modifier.padding(16.dp)) {
+                    var colorString = ""
+                    dog.colors.forEachIndexed { index, text ->
+                        colorString += text
 
-                Text(dog.name, style = MaterialTheme.typography.h4)
-                Text("• ${dog.age}")
-                Text("• ${dog.breed}")
-                Text("• $colorString")
+                        if (index < dog.colors.size - 1) {
+                            colorString += ", "
+                        }
+                    }
+
+                    Text(
+                        dog.name,
+                        style = MaterialTheme.typography.h3,
+                        modifier = Modifier
+                    )
+                    Text("• ${dog.age} old")
+                    Text("• Breed: ${dog.breed}")
+                    Text("• Color(s): $colorString")
+                    dog.description?.let {
+                        Text(it,
+                            modifier = Modifier
+                                .padding(vertical = 8.dp)
+                                .align(Alignment.Start)
+                        )
+                    }
+                }
             }
         }
     }

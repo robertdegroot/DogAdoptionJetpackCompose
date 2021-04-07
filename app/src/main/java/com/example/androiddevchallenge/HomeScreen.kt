@@ -17,9 +17,9 @@ import com.example.androiddevchallenge.data.DogData
 @Composable
 fun HomeScreen(navController: NavController?) {
     Column(modifier = Modifier.fillMaxSize()) {
-        TopAppBar(title = {
-            Text("Dog adoption list")
-        })
+        TopAppBar(
+            title = { Text("Dog adoption list") },
+        )
 
         Surface(color = MaterialTheme.colors.background) {
             DogList(DogData().getAllDogs(), navController)
